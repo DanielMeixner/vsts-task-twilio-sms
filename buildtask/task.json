@@ -11,7 +11,7 @@
         "Minor": 1,
         "Patch": 0
     },
-    "instanceNameFormat": "Trigger IoT Hub to send message $(samplestring)",
+    "instanceNameFormat": "Trigger IoT Hub to send a message.",
     "groups": [
         {
             "name": "advanced",
@@ -26,7 +26,7 @@
             "label": "IotHubConnectionString",
             "defaultValue": "$(iothubconnstring)",
             "required": true,
-            "helpMarkDown": "IotHubConnectionString"
+            "helpMarkDown": "Connection string to Azure IoT Hub. You can find it in portal.azure.com. Looks like HostName=banana.azure-devices.net;SharedAccessKeyName=banana;SharedAccessKey=bananabananabanana= "
         },
         {
             "name": "IotHubDeviceRequestUrl",
@@ -34,7 +34,7 @@
             "label": "IotHubDeviceRequestUrl",
             "defaultValue": "$(iothubdevicerequest)",
             "required": true,
-            "helpMarkDown": "IotHubDeviceRequestUrl"
+            "helpMarkDown": "The rest api used to query the devices. Looks something like https://banana.azure-devices.net/devices?top={1000}&api-version=2016-02-03 modify this url to send to a subset of your devices only."
         },
          {
             "name": "IoTHubAuthString",
@@ -42,7 +42,7 @@
             "label": "IoTHubAuthString",
             "defaultValue": "$(iothubauthB64)",
             "required": true,
-            "helpMarkDown": "IoTHubAuthString"
+            "helpMarkDown": "This is the auth string required to talk to IoT Hub. You can find it in the Azure portal. However Base 64 encode it. Currently there's an issue in passing the auth key and the workaround is to base 64 encode the key. It will be decoded during processing."
         },
         {
             "name": "Message",
@@ -50,7 +50,7 @@
             "label": "Message",
             "defaultValue": "Hello from VSTS.",
             "required": true,
-            "helpMarkDown": "Message"
+            "helpMarkDown": "The message you want to send. Use plain strings otherwise the app might crash. Don't use special characters for your own safety."
         },
         {
             "name": "MessageId",
@@ -58,7 +58,7 @@
             "label": "MessageId",
             "defaultValue": "42",
             "required": true,
-            "helpMarkDown": "MessageId"
+            "helpMarkDown": "A message id to allow your devices to distinguish messages."
         }
     ],
     "execution": {

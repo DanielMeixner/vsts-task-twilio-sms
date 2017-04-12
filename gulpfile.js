@@ -38,5 +38,7 @@ gulp.task('version',['copy'], function(){
   gulp.src(['vss-extension.json'])
     .pipe(replace('G_VERSION', '0.0.'+util.env.num))
     .pipe(gulp.dest('_out/'));
-    
+  gulp.src(['overview.md'])
+    .pipe(replace('G_VERSION', '0.0.'+util.env.num))
+    .pipe(gulp.dest('_out/'));
 });

@@ -9,7 +9,7 @@
             "id": "Microsoft.VisualStudio.Services"
         }
     ],    
-    "description": "Daniel Meixner's build tools. Includes one build task.",
+    "description": "Daniel Meixner's build and release tools.",
     "categories": [
         "Build and release"
     ],

@@ -1,7 +1,7 @@
 {
   "name": "dmx-iot-task",
   "version": "G_VERSION",
-  "description": "VSTS Command Line Task",
+  "description": "A VSTS task to trigger IoT Hub and send a message to devices.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
