@@ -1,0 +1,17 @@
+{
+  "name": "dmx-iot-task",
+  "version": "0.0.14",
+  "description": "VSTS Command Line Task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },  
+  "author": "Daniel Meixner",   
+  "homepage": "https://github.com/Microsoft/vsts-tasks#readme",
+  "dependencies": {
+        "azure-iothub": "1.1.8",
+        "azure-iot-common": "1.1.6",
+        "request": "2.81.0",
+        "vsts-task-lib":"2.0.2-preview"
+  }
+}
