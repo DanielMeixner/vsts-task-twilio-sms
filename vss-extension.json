@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "DanielMeixnerBuildTools",
     "name": "Daniel Meixner Build Tools",
-    "version": "0.0.14",
+    "version": "G_VERSION",
     "publisher": "DanielMeixner",
     "targets": [
         {
@@ -14,7 +14,7 @@
         "Build and release"
     ],
     "icons": {
-        "default": "images/icon.png"        
+        "default": "/images/icon.png"        
     },
     "files": [
         {

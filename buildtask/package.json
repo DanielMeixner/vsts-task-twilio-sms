@@ -1,6 +1,6 @@
 {
   "name": "dmx-iot-task",
-  "version": "0.0.14",
+  "version": "G_VERSION",
   "description": "VSTS Command Line Task",
   "main": "index.js",
   "scripts": {

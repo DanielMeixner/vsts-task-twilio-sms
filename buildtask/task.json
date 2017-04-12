@@ -1,7 +1,7 @@
 {
     "id": "933042a1-2954-422e-8c91-a0ab9686b007",
     "name": "IoTHubTask",
-    "friendlyName": "Azure IoT Hub Trigger Task 0.0.14",
+    "friendlyName": "Azure IoT Hub Trigger Task G_VERSION",
     "description": "Triggers Azure IoT Hub to send a message to registerd devices.",
     "helpMarkDown": "",
     "category": "Utility",
@@ -23,8 +23,8 @@
        {
             "name": "IotHubConnectionString",
             "type": "string",
-            "label": "IIotHubConnectionString",
-            "defaultValue": "",
+            "label": "IotHubConnectionString",
+            "defaultValue": "$(iothubconnstring)",
             "required": true,
             "helpMarkDown": "IotHubConnectionString"
         },
@@ -32,7 +32,7 @@
             "name": "IotHubDeviceRequestUrl",
             "type": "string",
             "label": "IotHubDeviceRequestUrl",
-            "defaultValue": "",
+            "defaultValue": "$(iothubdevicerequest)",
             "required": true,
             "helpMarkDown": "IotHubDeviceRequestUrl"
         },
@@ -40,9 +40,25 @@
             "name": "IoTHubAuthString",
             "type": "string",
             "label": "IoTHubAuthString",
-            "defaultValue": "",
+            "defaultValue": "$(iothubauthB64)",
             "required": true,
             "helpMarkDown": "IoTHubAuthString"
+        },
+        {
+            "name": "Message",
+            "type": "string",
+            "label": "Message",
+            "defaultValue": "Hello from VSTS.",
+            "required": true,
+            "helpMarkDown": "Message"
+        },
+        {
+            "name": "MessageId",
+            "type": "string",
+            "label": "MessageId",
+            "defaultValue": "42",
+            "required": true,
+            "helpMarkDown": "MessageId"
         }
     ],
     "execution": {
