@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
-    "id": "DanielMeixnerBuildTools",
-    "name": "Daniel Meixner Build Tools",
+    "id": "IotHubDeviceTwinUpdater",
+    "name": "DeviceTwin Update",
     "version": "G_VERSION",
     "publisher": "DanielMeixner",
     "targets": [

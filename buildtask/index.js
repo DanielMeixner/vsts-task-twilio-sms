@@ -1,100 +1,72 @@
 'use strict';
 
-var Client = require('azure-iothub').Client;
-var Message = require('azure-iot-common').Message;
-var req = require("request");
-var taaa = require('vsts-task-lib/task');
+var taskslib = require('vsts-task-lib/task');
+var iothub = require('azure-iothub');
 
-var connectionString = taaa.getInput('IotHubConnectionString');
-var iothuburl = taaa.getInput('IotHubDeviceRequestUrl');
-var authb64 = taaa.getInput('IoTHubAuthString');
-var cloudToDeviceMsg = taaa.getInput('MessageContent');
-var messageId =taaa.getInput('MessageId');
+var connectionString = taskslib.getInput('IotHubConnectionString');
+var twinPatch = taskslib.getInput('DeviceTwinPatchString');
+var deviceQueryString = taskslib.getInput('DeviceQueryString');
+var deviceResultNumber = taskslib.getInput('DeviceResultNumber');
 
-var buf = Buffer.from(authb64, 'base64');
-var auth = buf.toString('utf8');
+var registry = iothub.Registry.fromConnectionString(connectionString);
 
-console.log("connectionString:" + connectionString);
-console.log("iothuburl:" + iothuburl);
-console.log("decrypted Auth: " + auth);
+// sample patch
+// var twinPatch = {
+//     tags: {
+//         myprop: {
+//             subprop: "hello",
+//             other: "world",
+//             num: 1
+//         }
+//     }
+// };
 
-var headers = {
-    'Content-Type': 'application/json',
-    'Authorization': auth
-}
-console.log("LOG2");
 
-var options = {
-    'url': iothuburl,
-    'method': 'GET',
-    'headers': headers
+var updateDeviceTwinsWithPatch = function (patch, inQueryString, inResultNr) {
+    console.log("################################");
+    console.log("Start working on device twins ...");
+    console.log("connectionString found: " + connectionString);
+    console.log("deviceQueryString found: " + queryString);
+    console.log("twinPatch found: " + patch);
+    console.log("deviceResultNumber found: " + inResultNr);
+
+
+    // create query
+    var queryString = "SELECT * FROM devices";
+    var resultNr = 1000;
+    if (inQueryString != null) {
+        queryString = inQueryString;
+    }
+
+    if (inResultNr != null) {
+        resultNr = parseInt(inResultNr);
+    }
+
+    var query = registry.createQuery(queryString, resultNr);
+
+
+    // run query, iterate over results
+    query.nextAsTwin(function (err, results) {
+        if (err) {
+            console.error('Failed to fetch the results: ' + err.message);
+        } else {
+
+            console.log("Found " + results.length + " for query : \'" + queryString + "\'.");
+            if (results.length > 0) {
+                var i = 0;
+                console.log(results.map(function (twin) { return "(" + i++ + ")" + twin.deviceId }).join('\n'));
+
+                // update all found twins
+                results.map(function (twin) {
+                    twin.update(patch, function (err) { });
+                    console.log("Updated device twin for device with id " + twin.deviceId + " .");
+                }
+                )
+            }
+        }
+
+    });
 };
 
-var deviceList;
-var nrOfDevices = 0;
-var nrOfMsgsTriggered = 0;
 
-// query devices from iot hub
-req(options, function (error, response, body) {
-    console.log("inside device query Log3b");
-    console.log(body);
-    deviceList = JSON.parse(body);
-    nrOfDevices = deviceList.length;
-    console.log("Found " + nrOfDevices + " devices.");
-});
-
-var SendNotification = function (devId) {
-    console.log(devId);
-}
-
-var serviceClient = Client.fromConnectionString(connectionString);
-
-function printResultFor(op) {
-    return function printResult(err, res) {
-        if (err) {
-            console.log(op + ' error: ' + err.toString());
-            if (nrOfDevices == ++nrOfMsgsTriggered) {
-                console.log("Exiting gracefully after delivery.");
-                process.exit();
-            }
-        }
-        if (res) {
-            console.log(op + ' status: ' + res.constructor.name);
-            if (nrOfDevices == ++nrOfMsgsTriggered) {
-                console.log("Exiting gracefully after delivery.");
-                process.exit();
-            }
-        }
-    };
-}
-
-function receiveFeedback(err, receiver) {
-    receiver.on('message', function (msg) {
-        console.log('Feedback message:')
-        console.log(msg.getData().toString('utf-8'));
-    });
-}
-
-serviceClient.open(function (err) {
-    if (err) {
-        console.error('Could not connect: ' + err.message);
-    } else {
-        console.log('Service client connected');
-
-        serviceClient.getFeedbackReceiver(receiveFeedback);
-        var message = new Message(cloudToDeviceMsg);
-        message.ack = 'full';
-        message.messageId = messageId;
-        console.log('Sending message: ' + message.getData());
-        deviceList.forEach(function (element) {
-            var id = element.deviceId;
-
-            serviceClient.send(id, message, printResultFor('send'));
-            console.log("Sent message to ... " + id);
-
-        }, this);
-
-        console.log("done");
-        // Do NOT call this:  process.exit();
-    }
-})
+updateDeviceTwinsWithPatch(twinPatch, deviceQueryString, deviceResultNumber);

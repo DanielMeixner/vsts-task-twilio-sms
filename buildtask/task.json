@@ -1,8 +1,8 @@
 {
-    "id": "933042a1-2954-422e-8c91-a0ab9686b007",
-    "name": "IoTHubTask",
-    "friendlyName": "Azure IoT Hub Trigger Task G_VERSION",
-    "description": "Triggers Azure IoT Hub to send a message to registerd devices.",
+    "id": "dad90023-5d96-4914-8d27-5ee5daada5fe",
+    "name": "IoTHub-DeviceTwin-Task",
+    "friendlyName": "Azure IoT Device Twin Task G_VERSION",
+    "description": "Triggers Azure IoT Hub to update device twin for registerd devices.",
     "helpMarkDown": "",
     "category": "Utility",
     "author": "Daniel Meixner",
@@ -11,7 +11,7 @@
         "Minor": 1,
         "Patch": 0
     },
-    "instanceNameFormat": "Trigger IoT Hub to send a message.",
+    "instanceNameFormat": "Trigger IoT Hub to update device twin properties.",
     "groups": [
         {
             "name": "advanced",
@@ -23,42 +23,34 @@
        {
             "name": "IotHubConnectionString",
             "type": "string",
-            "label": "IotHubConnectionString",
+            "label": "Iot Hub Connection String",
             "defaultValue": "$(iothubconnstring)",
             "required": true,
             "helpMarkDown": "Connection string to Azure IoT Hub. You can find it in portal.azure.com. Looks like HostName=banana.azure-devices.net;SharedAccessKeyName=banana;SharedAccessKey=bananabananabanana= "
         },
         {
-            "name": "IotHubDeviceRequestUrl",
+            "name": "DeviceTwinPatchString",
             "type": "string",
-            "label": "IotHubDeviceRequestUrl",
-            "defaultValue": "$(iothubdevicerequest)",
+            "label": "Device Twin Patch Json",
+            "defaultValue": "$(DeviceTwinPatchString)",
             "required": true,
-            "helpMarkDown": "The rest api used to query the devices. Looks something like https://banana.azure-devices.net/devices?top={1000}&api-version=2016-02-03 modify this url to send to a subset of your devices only."
+            "helpMarkDown": "Json formatted string representing the device twin patch."
         },
          {
-            "name": "IoTHubAuthString",
+            "name": "DeviceQueryString",
             "type": "string",
-            "label": "IoTHubAuthString",
-            "defaultValue": "$(iothubauthB64)",
+            "label": "Device Query",
+            "defaultValue": "$(DeviceQueryString)",
             "required": true,
-            "helpMarkDown": "This is the auth string required to talk to IoT Hub. You can find it in the Azure portal. However Base 64 encode it. Currently there's an issue in passing the auth key and the workaround is to base 64 encode the key. It will be decoded during processing."
+            "helpMarkDown": "Query string, defaults to SELECT * FROM devices "
         },
         {
-            "name": "Message",
+            "name": "DeviceResultNumber",
             "type": "string",
-            "label": "Message",
-            "defaultValue": "Hello from VSTS.",
+            "label": "Number of Results",
+            "defaultValue": "1000",
             "required": true,
-            "helpMarkDown": "The message you want to send. Use plain strings otherwise the app might crash. Don't use special characters for your own safety."
-        },
-        {
-            "name": "MessageId",
-            "type": "string",
-            "label": "MessageId",
-            "defaultValue": "42",
-            "required": true,
-            "helpMarkDown": "A message id to allow your devices to distinguish messages."
+            "helpMarkDown": "Number of results. Max 10000, default 1000."
         }
     ],
     "execution": {

@@ -1,7 +1,7 @@
 {
-  "name": "dmx-iot-task",
-  "version": "G_VERSION",
-  "description": "A VSTS task to trigger IoT Hub and send a message to devices.",
+  "name": "dmx-iot-device-twin",
+  "version": "0.0.1",
+  "description": "A VSTS task to trigger IoT Hub to update device twins.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,9 +9,7 @@
   "author": "Daniel Meixner",   
   "homepage": "https://github.com/Microsoft/vsts-tasks#readme",
   "dependencies": {
-        "azure-iothub": "1.1.8",
-        "azure-iot-common": "1.1.6",
-        "request": "2.81.0",
-        "vsts-task-lib":"2.0.2-preview"
+        "azure-iothub": "^1.1.11",
+        "vsts-task-lib":"2.0.5"
   }
 }
