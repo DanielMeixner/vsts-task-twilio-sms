@@ -1,8 +1,8 @@
 {
-    "id": "dad90023-5d96-4914-8d27-5ee5daada5fe",
-    "name": "IoTHub-DeviceTwin-Task",
-    "friendlyName": "Azure IoT Device Twin Task G_VERSION",
-    "description": "Triggers Azure IoT Hub to update device twin for registerd devices.",
+    "id": "4c5384df-084e-45ee-8610-cfda4c2c779a",
+    "name": "IoTHub-DirectMethod-Task",
+    "friendlyName": "Azure IoT Hub Direct Method to Devices Task G_VERSION",
+    "description": "Triggers Azure IoT Hub to send a direct method to registerd devices.",
     "helpMarkDown": "",
     "category": "Utility",
     "author": "Daniel Meixner",
@@ -11,7 +11,7 @@
         "Minor": 1,
         "Patch": 0
     },
-    "instanceNameFormat": "Trigger IoT Hub to update device twin properties.",
+    "instanceNameFormat": "Trigger IoT Hub to send a direct method.",
     "groups": [
         {
             "name": "advanced",
@@ -29,12 +29,12 @@
             "helpMarkDown": "Connection string to Azure IoT Hub. You can find it in portal.azure.com. Looks like HostName=banana.azure-devices.net;SharedAccessKeyName=banana;SharedAccessKey=bananabananabanana= "
         },
         {
-            "name": "DeviceTwinPatchString",
+            "name": "Message",
             "type": "string",
-            "label": "Device Twin Patch Json",
-            "defaultValue": "$(DeviceTwinPatchString)",
+            "label": "Message",
+            "defaultValue": "$(Message)",
             "required": true,
-            "helpMarkDown": "Json formatted string representing the device twin patch."
+            "helpMarkDown": "Message to device."
         },
          {
             "name": "DeviceQueryString",

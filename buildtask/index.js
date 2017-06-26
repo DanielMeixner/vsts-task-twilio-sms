@@ -4,11 +4,13 @@ var taskslib = require('vsts-task-lib/task');
 var iothub = require('azure-iothub');
 
 var connectionString = taskslib.getInput('IotHubConnectionString');
-var twinPatch = taskslib.getInput('DeviceTwinPatchString');
+var messageToDevice = taskslib.getInput('Message');
 var deviceQueryString = taskslib.getInput('DeviceQueryString');
 var deviceResultNumber = taskslib.getInput('DeviceResultNumber');
 
 var registry = iothub.Registry.fromConnectionString(connectionString);
+var Client = iothub.Client;
+var client = Client.fromConnectionString(connectionString);
 
 // sample patch
 // var twinPatch = {
@@ -20,20 +22,26 @@ var registry = iothub.Registry.fromConnectionString(connectionString);
 //         }
 //     }
 // };
+ var methodParams = {
+        methodName: 'microsoft.management.appInstall',
+        payload: 'messageToDevice',
+        timeoutInSeconds: 30
+    };
 
-
-var updateDeviceTwinsWithPatch = function (patch, inQueryString, inResultNr) {
+var sendDirectMethod = function ( inQueryString, inResultNr, mParams) {
     console.log("################################");
     console.log("Start working on device twins ...");
     console.log("connectionString found: " + connectionString);
     console.log("deviceQueryString found: " + queryString);
-    console.log("twinPatch found: " + patch);
+    console.log("Message found: " + messageToDevice);
     console.log("deviceResultNumber found: " + inResultNr);
+
+   
 
 
     // create query
     var queryString = "SELECT * FROM devices";
-    var resultNr = 1000;
+    var resultNr = 10;
     if (inQueryString != null) {
         queryString = inQueryString;
     }
@@ -58,8 +66,19 @@ var updateDeviceTwinsWithPatch = function (patch, inQueryString, inResultNr) {
 
                 // update all found twins
                 results.map(function (twin) {
-                    twin.update(patch, function (err) { });
+                    //twin.update(patch, function (err) { });
                     console.log("Updated device twin for device with id " + twin.deviceId + " .");
+
+                    // send direct method to devices
+                    client.invokeDeviceMethod(twin.deviceId, mParams, function (err, result) {
+                        if (err) {
+                            console.error('Failed to invoke method \'' + mParams.methodName + '\' on device '+ twin.deviceId +' : ' + err.message);
+                        } else {
+                            console.log(mParams.methodName + ' on ' + twin.deviceId + ':');
+                            console.log(JSON.stringify(result, null, 2));
+                        }
+                    });
+
                 }
                 )
             }
@@ -69,4 +88,4 @@ var updateDeviceTwinsWithPatch = function (patch, inQueryString, inResultNr) {
 };
 
 
-updateDeviceTwinsWithPatch(twinPatch, deviceQueryString, deviceResultNumber);
+sendDirectMethod( deviceQueryString, deviceResultNumber,methodParams);

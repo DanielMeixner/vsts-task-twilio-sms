@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
-    "id": "IotHubDeviceTwinUpdater",
-    "name": "DeviceTwin Update",
+    "id": "IotHub-DirectMethod",
+    "name": "IoT Hub Direct Method",
     "version": "G_VERSION",
     "publisher": "DanielMeixner",
     "targets": [
