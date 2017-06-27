@@ -1,0 +1,15 @@
+{
+  "PackageFamilyName" : "MyCoolApp_1abcde2f3ghij",
+  "Appx": {
+    "ConnectionString" : "DefaultEndpointsProtocol=https;AccountName=myaccount;AccountKey=abcdef",
+    "ContainerName" : "MyAppContainer",
+    "BlobName" : "MyCoolApp.appx"
+  },
+  "Dependencies": [
+    {
+      "ConnectionString" : "DefaultEndpointsProtocol=https;AccountName=myaccount;AccountKey=abcdef",
+      "ContainerName" : "MyDependencyContainer",
+      "BlobName" : "MyCoolAppDependency.appx"
+    }
+  ]
+}
