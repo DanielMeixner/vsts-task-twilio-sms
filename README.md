@@ -1,16 +1,16 @@
 # VSTS Extension to trigger Azure IoT Hub Direct Methods
-This VSTS extension triggers Azure IoT Hub Direct Methods. I wrote it primarly as an example how to trigger IoT Device Updates running "Windows 10 IoT Core" following the approach described [here]("https://github.com/ms-iot/iot-core-azure-dm-client"). Feel free to modify and adjust it.
+This VSTS extension triggers Azure IoT Hub Direct Methods. I wrote it primarly as an example how to trigger IoT Device Updates running "Windows 10 IoT Core" following the approach described [here](https://github.com/ms-iot/iot-core-azure-dm-client). Feel free to modify and adjust it.
 
 ## Installation
-You can install the latest version directly from Visual Studio marketplace [here]("https://marketplace.visualstudio.com/items?itemName=DanielMeixner.IotHub-DirectMethod") into your Visual Studio Team Services account. It will appear as a build and release task in the "Utilites" category.
+You can install the latest version directly from Visual Studio marketplace [here](https://marketplace.visualstudio.com/items?itemName=DanielMeixner.IotHub-DirectMethod) into your Visual Studio Team Services account. It will appear as a build and release task in the "Utilites" category.
 
 
 ## Parameters
 Here's how you use it. Specify the following values:
 * Azure IoT Hub Connections string - you can find it in Azure portal
-* Direct Method Name - the name of the direct method you want to trigger. It has to be implemented on the device of course. For application updates on Windows 10 IoT Core you can use microsoft.management.appInstall but make sure to follow the guidance [here]("https://github.com/ms-iot/iot-core-azure-dm-client/blob/master/docs/application-management.md").
-* Json Payload - the payload depends on the method you're calling. For application updates on Windows 10 IoT Core take a look [here]("https://github.com/ms-iot/iot-core-azure-dm-client/blob/master/docs/application-management.md") again.
-* Device Query - The default query is "Select * from devices" however you can specify some filters using device query language, eg. "select * from devices where deviceid='myRaspbi1'. You can also filter on device tags in the devicetwin. Pretty awesome. Check [here]("https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-query-language")for docs.
+* Direct Method Name - the name of the direct method you want to trigger. It has to be implemented on the device of course. For application updates on Windows 10 IoT Core you can use microsoft.management.appInstall but make sure to follow the guidance [here](https://github.com/ms-iot/iot-core-azure-dm-client/blob/master/docs/application-management.md).
+* Json Payload - the payload depends on the method you're calling. For application updates on Windows 10 IoT Core take a look [here](https://github.com/ms-iot/iot-core-azure-dm-client/blob/master/docs/application-management.md) again.
+* Device Query - The default query is "Select * from devices" however you can specify some filters using device query language, eg. "select * from devices where deviceid='myRaspbi1'. You can also filter on device tags in the devicetwin. Pretty awesome. Check [here](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-query-language)for docs.
 * Number of results - the numer of devices returned. Default is 1000.
 
 
@@ -26,7 +26,7 @@ If you run this extension it will ...
 
 ## Compile
 If you want you can clone and compile yourself. 
-*   You need gulp installed besides some other prereqs for creation of VSTS extensions. Check details for tfx-cli etc [here]("https://www.visualstudio.com/en-us/docs/integrate/extensions/develop/add-build-task#preparation-and-required-setup-for-this-tutorial").
+*   You need gulp installed besides some other prereqs for creation of VSTS extensions. Check details for tfx-cli etc [here](https://www.visualstudio.com/en-us/docs/integrate/extensions/develop/add-build-task#preparation-and-required-setup-for-this-tutorial).
 Then run 
     >`` gulp build --num=1   ``
 
