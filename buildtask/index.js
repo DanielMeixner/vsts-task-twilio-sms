@@ -4,7 +4,7 @@ var taskslib = require('vsts-task-lib/task');
 var iothub = require('azure-iothub');
 
 var connectionString = taskslib.getInput('IotHubConnectionString');
-
+var directMethodName = taskslib.getInput('DirectMethodName');
 var messageToDevice = JSON.parse(taskslib.getInput('Message'));
 var deviceQueryString = taskslib.getInput('DeviceQueryString');
 var deviceResultNumber = taskslib.getInput('DeviceResultNumber');
@@ -13,18 +13,11 @@ var registry = iothub.Registry.fromConnectionString(connectionString);
 var Client = iothub.Client;
 var client = Client.fromConnectionString(connectionString);
 
-// sample patch
-// var twinPatch = {
-//     tags: {
-//         myprop: {
-//             subprop: "hello",
-//             other: "world",
-//             num: 1
-//         }
-//     }
-// };
+
+//methodName: 'microsoft.management.appInstall',
+
  var methodParams = {
-        methodName: 'microsoft.management.appInstall',
+        methodName:directMethodName,
         payload: messageToDevice,
         timeoutInSeconds: 30
     };
@@ -34,10 +27,8 @@ var invokeDirectMethod = function ( inQueryString, inResultNr, mParams) {
     console.log("Start activating direct methods  ...");
     console.log("connectionString found: " + connectionString);
     console.log("deviceQueryString found: " + queryString);
-    console.log("Message found: " + messageToDevice);
-    console.log("deviceResultNumber found: " + inResultNr);
-
-   
+    console.log("Message found: " +JSON.stringify(messageToDevice));
+    console.log("deviceResultNumber found: " + inResultNr);   
 
 
     // create query
@@ -63,12 +54,12 @@ var invokeDirectMethod = function ( inQueryString, inResultNr, mParams) {
             console.log("Found " + results.length + " for query : \'" + queryString + "\'.");
             if (results.length > 0) {
                 var i = 0;
-                console.log(results.map(function (twin) { return "(" + i++ + ")" + twin.deviceId }).join('\n'));
+                console.log(results.map(function (twin) { return "(" + i++ + ") " + twin.deviceId }).join('\n'));
 
-                // update all found twins
+                // invoke direct methods
                 results.map(function (twin) {
-                    //twin.update(patch, function (err) { });
-                    console.log("Invoking direct method for device with id " + twin.deviceId + " .");
+                    
+                    console.log("Start invoking direct method for device with id " + twin.deviceId + " .");
 
                     // send direct method to devices
                     client.invokeDeviceMethod(twin.deviceId, mParams, function (err, result) {
