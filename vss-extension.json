@@ -4,6 +4,7 @@
     "name": "IoT Hub Direct Method",
     "version": "G_VERSION",
     "publisher": "DanielMeixner",
+    "public":true,
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"

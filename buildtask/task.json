@@ -36,6 +36,14 @@
             "required": true,
             "helpMarkDown": "Message to device."
         },
+        {
+            "name": "DirectMethodName",
+            "type": "string",
+            "label": "Direct Method",
+            "defaultValue": "$(DirectMethodName)",
+            "required": true,
+            "helpMarkDown": "Name of direct method."
+        },
          {
             "name": "DeviceQueryString",
             "type": "string",
