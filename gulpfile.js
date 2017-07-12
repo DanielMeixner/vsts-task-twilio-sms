@@ -21,8 +21,7 @@ gulp.task('vsts-build-extension',['version'], function(){
   .pipe(shell('tfx extension create --manifest-globs vss-extension.json'
 ,
 {cwd:"_out"}
-))
-    
+))  
 });
 
 gulp.task('copy', function()
@@ -41,6 +40,9 @@ gulp.task('version',['copy'], function(){
     .pipe(replace('G_VERSION', '0.0.'+util.env.num))
     .pipe(gulp.dest('_out/'));
   gulp.src(['overview.md'])
+    .pipe(replace('G_VERSION', '0.0.'+util.env.num))
+    .pipe(gulp.dest('_out/'));
+ gulp.src(['README.md'])
     .pipe(replace('G_VERSION', '0.0.'+util.env.num))
     .pipe(gulp.dest('_out/'));
 });

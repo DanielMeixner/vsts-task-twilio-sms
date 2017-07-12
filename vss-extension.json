@@ -1,26 +1,35 @@
 {
     "manifestVersion": 1,
-    "id": "IotHub-DirectMethod",
-    "name": "IoT Hub Direct Method",
+    "id": "Twilio-Send-SMS",
+    "name": "Twilio Send SMS",
     "version": "G_VERSION",
     "publisher": "DanielMeixner",
-    "public":true,
+    "public": true,
     "targets": [
         {
             "id": "Microsoft.VisualStudio.Services"
         }
-    ],    
+    ],
     "description": "Daniel Meixner's build and release tools.",
     "categories": [
         "Build and release"
     ],
     "icons": {
-        "default": "/images/icon.png"        
+        "small": "/images/icon64.png",
+        "default": "/images/icon.png"
+    },
+    "content": {
+
+        "details": {
+
+            "path": "overview.md"
+        }
     },
     "files": [
         {
             "path": "buildtask"
         }
+        
     ],
     "contributions": [
         {

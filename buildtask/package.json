@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },  
-  "author": "Daniel Meixner",   
+  },
+  "author": "Daniel Meixner",
   "homepage": "https://github.com/Microsoft/vsts-tasks#readme",
   "dependencies": {
-        "azure-iothub": "^1.1.11",
-        "vsts-task-lib":"2.0.5"
+    "azure-iothub": "^1.1.11",
+    "express": "^4.15.3",
+    "twilio": "^3.4.0",
+    "vsts-task-lib": "2.0.5"
   }
 }
